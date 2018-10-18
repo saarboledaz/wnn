@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
-import { HTTP } from '@ionic-native/http';
-import { InAppBrowser } from '@ionic-native/in-app-browser';
-/*import { SocialSharing } from '@ionic-native/social-sharing';*/
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 @Component({
   selector: 'page-home',
@@ -21,7 +19,7 @@ export class HomePage {
   countryCode = '57';
   phoneNumber: string = "";
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private http: HTTP,private iab: InAppBrowser/*, private socialSharing: SocialSharing*/) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,private socialSharing: SocialSharing) {
 
   }
   showRadio() {
@@ -72,9 +70,7 @@ export class HomePage {
   }
   sendMessage(phone: string){
     this.phoneNumber = this.countryCode + phone
-    let url = 'https://api.whatsapp.com/send?phone='+ this.phoneNumber;
-    let browser = this.iab.create(url);
-    browser.show();
+    this.socialSharing.shareViaWhatsAppToReceiver(this.phoneNumber,"","","");
   }
 
 }

@@ -3,11 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { HTTP } from '@ionic-native/http';
-/*import { SocialSharing } from '@ionic-native/social-sharing';*/
-import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { SocialSharing } from '@ionic-native/social-sharing';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+
 
 
 @NgModule({
@@ -28,9 +27,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HTTP,
-    InAppBrowser
-    /*SocialSharing*/
+    SocialSharing
   ]
 })
 export class AppModule {}
