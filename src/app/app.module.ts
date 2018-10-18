@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HTTP } from '@ionic-native/http';
 /*import { SocialSharing } from '@ionic-native/social-sharing';*/
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
@@ -28,6 +29,7 @@ import { HomePage } from '../pages/home/home';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HTTP,
+    InAppBrowser
     /*SocialSharing*/
   ]
 })

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { HTTP } from '@ionic-native/http';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 /*import { SocialSharing } from '@ionic-native/social-sharing';*/
 
 @Component({
@@ -18,9 +19,9 @@ export class HomePage {
     "Chile": '56'
   };
   countryCode = '57';
-  phoneNumber;
+  phoneNumber: string = "";
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private http: HTTP/*, private socialSharing: SocialSharing*/) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, private http: HTTP,private iab: InAppBrowser/*, private socialSharing: SocialSharing*/) {
 
   }
   showRadio() {
@@ -69,50 +70,11 @@ export class HomePage {
 
 
   }
-
-  showPrompt() {
-    const prompt = this.alertCtrl.create({
-      title: 'Add number',
-      message: "Type the phone number to start the conversation",
-      inputs: [
-        {
-          name: 'number',
-          placeholder: this.countryCode + '3206765879'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log("Cancelled");
-          }
-        },
-        {
-          text: 'Send',
-          handler: data => {
-            this.phoneNumber = this.countryCode + data;
-            this.http.get('https://api.whatsapp.com/send?', {phone: this.phoneNumber}, {})
-              .then(data => {
-
-                console.log(data.status);
-                console.log(data.data); 
-                console.log(data.headers);
-
-              })
-              .catch(error => {
-
-                console.log(error.status);
-                console.log(error.error);
-                console.log(error.headers);
-
-              });
-            console.log('Sent');
-          }
-        }
-      ]
-    });
-    prompt.present();
+  sendMessage(phone: string){
+    this.phoneNumber = this.countryCode + phone
+    let url = 'https://api.whatsapp.com/send?phone='+ this.phoneNumber;
+    let browser = this.iab.create(url);
+    browser.show();
   }
-
 
 }

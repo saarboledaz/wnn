@@ -8,5 +8,8 @@
 
 <ion-content padding>
     <button ion-button block light (click)="showRadio()">Country</button>
-    <button ion-button color="secondary" block (click)="showPrompt()">Enter phone number</button> 
+    <ion-item>
+      <ion-input type="text" placeholder="Phone number" #phoneNumber></ion-input>
+    </ion-item>
+    <button ion-button block color="secondary" (click)="sendMessage(phoneNumber.value)">Send</button>
 </ion-content>
