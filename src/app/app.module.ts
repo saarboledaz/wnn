@@ -6,7 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { BrowserTab } from '@ionic-native/browser-tab';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SocialSharing
+    SocialSharing,
+    AndroidPermissions,
+    BrowserTab
   ]
 })
 export class AppModule {}

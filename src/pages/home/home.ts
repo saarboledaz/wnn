@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { BrowserTab } from '@ionic-native/browser-tab';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 @Component({
   selector: 'page-home',
@@ -19,12 +21,12 @@ export class HomePage {
   countryCode = '57';
   phoneNumber: string = "";
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController,private socialSharing: SocialSharing) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController,private socialSharing: SocialSharing, private androidPermissions: AndroidPermissions,private browserTab: BrowserTab) {
 
   }
   showRadio() {
     let alert = this.alertCtrl.create();
-    alert.setTitle('Country');
+    alert.setTitle('País');
 
     alert.addInput({
       type: 'radio',
@@ -69,8 +71,29 @@ export class HomePage {
 
   }
   sendMessage(phone: string){
+    /*
     this.phoneNumber = this.countryCode + phone
-    this.socialSharing.shareViaWhatsAppToReceiver(this.phoneNumber,"","","");
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCEPT_HANDOVER)
+    .then(
+      result => console.log("Tiene los permisos"), 
+      err => this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.ACCEPT_HANDOVER,this.androidPermissions.PERMISSION.SEND_RESPOND_VIA_MESSAGE])
+    );
+    this.socialSharing.shareViaWhatsAppToReceiver(this.phoneNumber,"","","")
+    .then(() => {
+      console.log("Enviado!");
+    }).catch(() => {
+      console.log("Error");
+    })*/
+    var url = "https://api.whatsapp.com/send?phone="+this.countryCode+phone;
+    this.browserTab.isAvailable()
+    .then(isAvailable => {
+      if (isAvailable) {
+        
+        this.browserTab.openUrl(url);
+      } else {
+        // open URL with InAppBrowser instead or SafariViewController
+      }
+    });
   }
 
 }
